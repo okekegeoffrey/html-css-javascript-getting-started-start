@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Pies | Bethany's Pie Shop</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="site.css" type="text/css">
+    </head>
+    <body>
+         <header>
+             <nav>
+                 <ul>
+                     <li><a href="/">Home</a></li>
+                     <li><a href="pies.html">Pies</a></li>
+                     <li><a href="contact.html">Contact</a></li>
+                 </ul>
+             </nav>
+         </header>
+         <main>
+             <aside><img src="images/logo.png" alt="Bethany's Pie Shop"></aside>
+
+             <article>
+                <h1>Pies</h1>
+                 <section class="columns-desktop">
+                     <div class="pie">
+                         <img src="images/apple-pie.png" alt="Apple Pie">
+                         <div class="columns">
+                             <div class="title">Apple Pie</div>
+                             <div class="price">$12.95</div>
+                         </div>
+                         <p class="desc">Our famous apple pie</p>
+                         <button data-order="apple-pie">Order</button>
+                     </div>
+                     <div class="pie">
+                         <img src="images/cherry-pie.png" alt="Cherry Pie">
+                         <div class="columns">
+                             <div class="title">Cherry Pie</div>
+                             <div class="price">$15.95</div>
+                         </div>
+                         <p class="desc">A Summer Classic!</p>
+                         <button data-order="cherry-pie">Order</button>
+                     </div>
+                 </section>
+             </article>
+         </main>
+
+         <footer>
+             <nav>
+                 <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="pies.html">Pies</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                 </ul>
+             </nav>
+         </footer>
+    </body>
+    <script>
+        // run JS when the page is done loading
+        window.addEventListener("DOMContentLoaded", function(e) {
+            // grab the order buttons
+            const orderButtons = document.querySelectorAll("button[data-order]");
+
+            // loop through the buttons
+            orderButtons.forEach(function(button) {
+                // add event listner to the buttons
+                button.addEventListener("click", function(e) {
+                    // return the button whose event listener triggered the event (get reference to the html element of the button we just clicked on)
+                    const button = e.currentTarget;
+                    // grab the button's parent container
+                    const container = button.parentNode;
+
+                    // object that holds info about the ordered pie
+                    const order = {
+                        id: button.getAttribute("data-order"),
+                        title: container.querySelector(".title").innerText,
+                        price: container.querySelector(".price").innerText,
+                        desc: container.querySelector(".desc").innerText
+                    };
+
+                    // save the order object in the local storage
+                    localStorage.setItem("order", JSON.stringify(order));
+
+                    // forward the website the order page
+                    const url = window.location.href.replace("pies.html", "order.html");
+                    window.location.href = url;
+                })
+            })
+        })
+    </script>
+</html>
